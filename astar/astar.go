@@ -91,7 +91,7 @@ func enqueueNeighbor(neighbor core.Coordinate, stepData *sd.StepData) {
 	newCost := currentLoc.CostOpt.Value + 1
 	costOpt := stepData.LocDataMap[neighbor].CostOpt
 	if !costOpt.IsFilled || newCost < costOpt.Value {
-		hValue := stepData.Heuristic.Distance(stepData.GoalCoord, neighbor)
+		hValue := stepData.Heuristic.Eval(stepData.GoalCoord, neighbor)
 		breadcrumb := core.Crumb{To: neighbor, From: currentLoc.Breadcrumb}
 		miniLoc := cq.MiniLoc{Breadcrumb: breadcrumb, Coord: neighbor, Cost: newCost}
 		heap.Push(&stepData.Queue, cq.PrioBundle[cq.MiniLoc]{Priority: newCost + hValue, Item: miniLoc})

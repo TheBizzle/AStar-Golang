@@ -19,7 +19,7 @@ const (
 	Dijkstra
 )
 
-func (h Heuristic) Distance(c1, c2 core.Coordinate) float64 {
+func (h Heuristic) Eval(c1, c2 core.Coordinate) float64 {
 	switch h {
 	case Euclidean:
 		xComp := difference(c1.X, c2.X)
@@ -32,7 +32,7 @@ func (h Heuristic) Distance(c1, c2 core.Coordinate) float64 {
 	case Dijkstra:
 		return 0
 	default:
-		panic(fmt.Sprintf("Impossible heuristic (Distance): %v", h))
+		panic(fmt.Sprintf("Impossible heuristic: %v", h))
 	}
 }
 
