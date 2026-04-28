@@ -3,7 +3,7 @@ module github.com/TheBizzle/AStar-Golang
 go 1.26.2
 
 require (
-	github.com/TheBizzle/PathFindingCore-Golang v1.1.3
+	github.com/TheBizzle/PathFindingCore-Golang v1.2.0
 	golang.org/x/tools v0.44.0
 )
 

@@ -16,8 +16,10 @@ func Run(pms core.PathingMapString, heuristic heur.Heuristic) (core.RunResult, *
 	for {
 		isPrimed := primeNextStep(stepData)
 		if stepData.GoalCoord == stepData.CurrentCoord {
+			drawResults(stepData)
 			return core.SuccessfulRun, stepData
 		} else if !isPrimed || stepData.ItersSoFar >= stepData.MaxIters {
+			drawResults(stepData)
 			return core.FailedRun, stepData
 		} else {
 			for _, neighbor := range stepData.PathingMap.NeighborsOf(stepData.CurrentCoord) {
@@ -96,5 +98,22 @@ func enqueueNeighbor(neighbor core.Coordinate, stepData *sd.StepData) {
 		breadcrumb := core.Crumb{To: neighbor, From: currentLoc.Breadcrumb}
 		miniLoc := cq.MiniLoc{Breadcrumb: breadcrumb, Coord: neighbor, Cost: newCost}
 		heap.Push(&stepData.Queue, cq.PrioBundle[cq.MiniLoc]{Priority: newCost + hValue, Item: miniLoc})
+	}
+}
+
+func drawResults(stepData *sd.StepData) {
+	var queries []core.Coordinate
+
+	for coord, locData := range stepData.LocDataMap {
+		if locData.WasVisited {
+			queries = append(queries, coord)
+		}
+	}
+
+	stepData.PathingMap.InsertQuery(queries)
+
+	if stepData.GoalCoord == stepData.CurrentCoord {
+		coords := stepData.LocDataMap[stepData.GoalCoord].Breadcrumb.Array()
+		stepData.PathingMap.InsertPath(coords)
 	}
 }
