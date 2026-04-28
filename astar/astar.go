@@ -6,6 +6,7 @@ import (
 
 	cq "github.com/TheBizzle/AStar-Golang/coordqueue"
 	heur "github.com/TheBizzle/AStar-Golang/heuristic"
+	opt "github.com/TheBizzle/AStar-Golang/option"
 	sd "github.com/TheBizzle/AStar-Golang/stepdata"
 	core "github.com/TheBizzle/PathFindingCore-Golang/pathingmap"
 )
@@ -45,11 +46,11 @@ func genInitialState(pms core.PathingMapString, heuristic heur.Heuristic) *sd.St
 	locData := map[core.Coordinate]sd.LocationData{}
 
 	for coord := range pmd.Grid {
-		cost := sd.Optional[float64]{Value: 0.0, IsFilled: false}
+		cost := opt.None[float64]{}
 		locData[coord] = sd.LocationData{Breadcrumb: nil, CostOpt: cost, WasVisited: false}
 	}
 
-	cost := sd.Optional[float64]{Value: 0.0, IsFilled: true}
+	cost := opt.NewOption[float64](0.0)
 	locData[pmd.Start] = sd.LocationData{Breadcrumb: selfBreadcrumb, CostOpt: cost, WasVisited: false}
 
 	return &sd.StepData{
@@ -79,7 +80,7 @@ func primeNextStep(stepData *sd.StepData) bool {
 
 	locData := stepData.LocDataMap[nextItem.Coord]
 	locData.Breadcrumb = nextItem.Breadcrumb
-	locData.CostOpt = sd.Optional[float64]{Value: nextItem.Cost, IsFilled: true}
+	locData.CostOpt = opt.NewOption(nextItem.Cost)
 	stepData.LocDataMap[nextItem.Coord] = locData
 	stepData.CurrentCoord = nextItem.Coord
 
@@ -88,9 +89,9 @@ func primeNextStep(stepData *sd.StepData) bool {
 
 func enqueueNeighbor(neighbor core.Coordinate, stepData *sd.StepData) {
 	currentLoc := stepData.LocDataMap[stepData.CurrentCoord]
-	newCost := currentLoc.CostOpt.Value + 1
+	newCost := currentLoc.CostOpt.Get() + 1
 	costOpt := stepData.LocDataMap[neighbor].CostOpt
-	if !costOpt.IsFilled || newCost < costOpt.Value {
+	if costOpt.IsEmpty() || newCost < costOpt.Get() {
 		hValue := stepData.Heuristic.Eval(stepData.GoalCoord, neighbor)
 		breadcrumb := core.Crumb{To: neighbor, From: currentLoc.Breadcrumb}
 		miniLoc := cq.MiniLoc{Breadcrumb: breadcrumb, Coord: neighbor, Cost: newCost}

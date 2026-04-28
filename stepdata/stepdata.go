@@ -4,17 +4,13 @@ package stepdata
 import (
 	cq "github.com/TheBizzle/AStar-Golang/coordqueue"
 	heur "github.com/TheBizzle/AStar-Golang/heuristic"
+	opt "github.com/TheBizzle/AStar-Golang/option"
 	core "github.com/TheBizzle/PathFindingCore-Golang/pathingmap"
 )
 
-type Optional[T any] struct {
-	Value    T
-	IsFilled bool
-}
-
 type LocationData struct {
 	Breadcrumb core.Breadcrumb
-	CostOpt    Optional[float64]
+	CostOpt    opt.Option[float64]
 	WasVisited bool
 }
 
