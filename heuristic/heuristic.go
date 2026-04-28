@@ -30,7 +30,7 @@ func (h Heuristic) Distance(c1, c2 core.Coordinate) float64 {
 		sum := sub(c1.X, c2.X) + sub(c1.Y, c2.Y)
 		return float64(sum)
 	case Dijkstra:
-		return 1
+		return 0
 	default:
 		panic(fmt.Sprintf("Impossible heuristic (Distance): %v", h))
 	}
