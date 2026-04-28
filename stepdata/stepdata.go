@@ -8,9 +8,14 @@ import (
 	core "github.com/TheBizzle/PathFindingCore-Golang/pathingmap"
 )
 
+type Optional[T any] struct {
+	Value    T
+	IsFilled bool
+}
+
 type LocationData struct {
 	Breadcrumb core.Breadcrumb
-	Cost       *float64
+	CostOpt    Optional[float64]
 	WasVisited bool
 }
 

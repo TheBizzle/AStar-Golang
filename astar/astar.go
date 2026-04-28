@@ -45,10 +45,12 @@ func genInitialState(pms core.PathingMapString, heuristic heur.Heuristic) sd.Ste
 	locData := map[core.Coordinate]sd.LocationData{}
 
 	for coord := range pmd.Grid {
-		locData[coord] = sd.LocationData{Breadcrumb: nil, Cost: nil, WasVisited: false}
+		cost := sd.Optional[float64]{Value: 0.0, IsFilled: false}
+		locData[coord] = sd.LocationData{Breadcrumb: nil, CostOpt: cost, WasVisited: false}
 	}
 
-	locData[pmd.Start] = sd.LocationData{Breadcrumb: selfBreadcrumb, Cost: new(0.0), WasVisited: false}
+	cost := sd.Optional[float64]{Value: 0.0, IsFilled: true}
+	locData[pmd.Start] = sd.LocationData{Breadcrumb: selfBreadcrumb, CostOpt: cost, WasVisited: false}
 
 	return sd.StepData{
 		LocDataMap:   locData,
@@ -79,7 +81,7 @@ func primeNextStep(stepData *sd.StepData) bool {
 
 	locData := stepData.LocDataMap[nextItem.Coord]
 	locData.Breadcrumb = nextItem.Breadcrumb
-	locData.Cost = &nextItem.Cost
+	locData.CostOpt = sd.Optional[float64]{Value: nextItem.Cost, IsFilled: true}
 	stepData.LocDataMap[nextItem.Coord] = locData
 	stepData.CurrentCoord = nextItem.Coord
 
@@ -88,8 +90,9 @@ func primeNextStep(stepData *sd.StepData) bool {
 
 func enqueueNeighbor(neighbor core.Coordinate, stepData *sd.StepData) {
 	currentLoc := stepData.LocDataMap[stepData.CurrentCoord]
-	newCost := *currentLoc.Cost + 1
-	if stepData.LocDataMap[neighbor].Cost == nil || newCost < *stepData.LocDataMap[neighbor].Cost {
+	newCost := currentLoc.CostOpt.Value + 1
+	costOpt := stepData.LocDataMap[neighbor].CostOpt
+	if !costOpt.IsFilled || newCost < costOpt.Value {
 		hValue := stepData.Heuristic.Distance(stepData.GoalCoord, neighbor)
 		breadcrumb := core.Crumb{To: neighbor, From: currentLoc.Breadcrumb}
 		miniLoc := cq.MiniLoc{Breadcrumb: breadcrumb, Coord: neighbor, Cost: newCost}
