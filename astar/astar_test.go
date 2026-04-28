@@ -12,7 +12,7 @@ import (
 )
 
 func TestAStarAllMaps(t *testing.T) {
-	heuristics := []heur.Heuristic{heur.Euclidean, heur.Manhattan}
+	heuristics := []heur.Heuristic{heur.Euclidean, heur.Manhattan, heur.Dijkstra}
 
 	for i, testMap := range testset.Tests {
 		for _, heur := range heuristics {

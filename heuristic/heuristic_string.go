@@ -10,11 +10,12 @@ func _() {
 	var x [1]struct{}
 	_ = x[Euclidean-0]
 	_ = x[Manhattan-1]
+	_ = x[Dijkstra-2]
 }
 
-const _Heuristic_name = "EuclideanManhattan"
+const _Heuristic_name = "EuclideanManhattanDijkstra"
 
-var _Heuristic_index = [...]uint8{0, 9, 18}
+var _Heuristic_index = [...]uint8{0, 9, 18, 26}
 
 func (i Heuristic) String() string {
 	idx := int(i) - 0
