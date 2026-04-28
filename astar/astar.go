@@ -65,19 +65,17 @@ func genInitialState(pms core.PathingMapString, heuristic heur.Heuristic) sd.Ste
 }
 
 func primeNextStep(stepData *sd.StepData) bool {
-	var next cq.PrioBundle[cq.MiniLoc]
+	var nextItem cq.MiniLoc
 
 	for {
 		if stepData.Queue.Len() == 0 {
 			return false
 		}
-		next = heap.Pop(&stepData.Queue).(cq.PrioBundle[cq.MiniLoc])
-		if !stepData.LocDataMap[next.Item.Coord].WasVisited {
+		nextItem = heap.Pop(&stepData.Queue).(cq.PrioBundle[cq.MiniLoc]).Item
+		if !stepData.LocDataMap[nextItem.Coord].WasVisited {
 			break
 		}
 	}
-
-	nextItem := next.Item
 
 	locData := stepData.LocDataMap[nextItem.Coord]
 	locData.Breadcrumb = nextItem.Breadcrumb
