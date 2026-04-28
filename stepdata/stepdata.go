@@ -15,7 +15,7 @@ type LocationData struct {
 }
 
 type StepData struct {
-	LocDataMap   map[core.Coordinate]*LocationData
+	LocDataMap   map[core.Coordinate]LocationData
 	MaxIters     uint
 	PathingMap   core.PathingMap
 	GoalCoord    core.Coordinate
