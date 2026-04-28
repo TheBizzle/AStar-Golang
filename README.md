@@ -3,7 +3,7 @@ AStar-Golang
 
 ## What is it?
 
-An A* implementation in Golang, building upon [my PathFindingCore module](https://github.com/TheBizzle/AStar-Golang).  It implements unidirectional A* with different three heuristics.
+An A* implementation in Golang, building upon [my PathFindingCore module](https://github.com/TheBizzle/PathFindingCore-Golang).  It implements unidirectional A* with different three heuristics.
 
 ## Why is it?
 
