@@ -1,6 +1,5 @@
 // Package coordqueue defines a coordinate queue data structure, as a Golang heap.  In A*, the coordinate
-// queue tells us which coordinate is the highest priority for us to check next, as determined by the
-// distance heuristic.
+// queue tells us which coordinate is the highest priority to check next, as determined by the heuristic.
 package coordqueue
 
 import (

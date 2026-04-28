@@ -1,5 +1,4 @@
-// Package stepdata defines the core data structures for representing the state of an ongoing pathfinding
-// attempt.
+// Package stepdata defines the core data structures for representing the state of a pathfinding attempt.
 package stepdata
 
 import (

@@ -1,6 +1,7 @@
-// Package heuristic defines the two common distance heuristics: Euclidean distance (AKA as the crow flies,
-// AKA the hypotenuse of a triangle) and Manhattan distance (AKA taxicab distance, AKA the sum of the two
-// legs of a right triangle).
+// Package heuristic defines the heuristics for use in the A* pathfinding algorithm.  One of them (Dijkstra)
+// is a do-nothing heuristic that turns A* into Dijkstra's (less-efficient) algorithm.  The others are
+// common distance heuristics: Euclidean distance (AKA as the crow flies, AKA the hypotenuse of a triangle)
+// and Manhattan distance (AKA taxicab distance, AKA the sum of the two legs of a right triangle).
 package heuristic
 
 import (
