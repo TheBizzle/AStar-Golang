@@ -22,12 +22,12 @@ const (
 func (h Heuristic) Distance(c1, c2 core.Coordinate) float64 {
 	switch h {
 	case Euclidean:
-		xComp := sub(c1.X, c2.X)
-		yComp := sub(c1.Y, c2.Y)
+		xComp := difference(c1.X, c2.X)
+		yComp := difference(c1.Y, c2.Y)
 		comps := (xComp * xComp) + (yComp * yComp)
 		return math.Sqrt(float64(comps))
 	case Manhattan:
-		sum := sub(c1.X, c2.X) + sub(c1.Y, c2.Y)
+		sum := difference(c1.X, c2.X) + difference(c1.Y, c2.Y)
 		return float64(sum)
 	case Dijkstra:
 		return 0
@@ -36,7 +36,7 @@ func (h Heuristic) Distance(c1, c2 core.Coordinate) float64 {
 	}
 }
 
-func sub(u1, u2 uint) uint {
+func difference(u1, u2 uint) uint {
 	if u1 >= u2 {
 		return u1 - u2
 	} else {
