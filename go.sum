@@ -1,5 +1,5 @@
-github.com/TheBizzle/PathFindingCore-Golang v1.1.2 h1:Dnu88WKorC8buSPEk3PpO8+57tEQFzz6RoQE30pxiRU=
-github.com/TheBizzle/PathFindingCore-Golang v1.1.2/go.mod h1:LpFgs58gdC4fq7KVJuiyChBxW1xbw9+NkX5g08mPOcc=
+github.com/TheBizzle/PathFindingCore-Golang v1.1.3 h1:ALeEOhBiYVFaxzZa4CMGlAt0IQBzX3LS2g6Ke3C/mRY=
+github.com/TheBizzle/PathFindingCore-Golang v1.1.3/go.mod h1:LpFgs58gdC4fq7KVJuiyChBxW1xbw9+NkX5g08mPOcc=
 github.com/google/go-cmp v0.6.0 h1:ofyhxvXcZhMsU5ulbFiLKl/XBFqE1GSq7atu8tAmTRI=
 github.com/google/go-cmp v0.6.0/go.mod h1:17dUlkBOakJ0+DkrSSNjCkIjxS6bF9zb3elmeNGIjoY=
 golang.org/x/mod v0.35.0 h1:Ww1D637e6Pg+Zb2KrWfHQUnH2dQRLBQyAtpr/haaJeM=
