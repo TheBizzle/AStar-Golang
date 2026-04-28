@@ -10,10 +10,10 @@ import (
 	core "github.com/TheBizzle/PathFindingCore-Golang/pathingmap"
 )
 
-func Run(pms core.PathingMapString, heuristic heur.Heuristic) (core.RunResult, sd.StepData) {
+func Run(pms core.PathingMapString, heuristic heur.Heuristic) (core.RunResult, *sd.StepData) {
 	stepData := genInitialState(pms, heuristic)
 	for {
-		isPrimed := primeNextStep(&stepData)
+		isPrimed := primeNextStep(stepData)
 		if stepData.GoalCoord == stepData.CurrentCoord {
 			return core.SuccessfulRun, stepData
 		} else if !isPrimed || stepData.ItersSoFar >= stepData.MaxIters {
@@ -21,7 +21,7 @@ func Run(pms core.PathingMapString, heuristic heur.Heuristic) (core.RunResult, s
 		} else {
 			for _, neighbor := range stepData.PathingMap.NeighborsOf(stepData.CurrentCoord) {
 				if !stepData.LocDataMap[neighbor].WasVisited {
-					enqueueNeighbor(neighbor, &stepData)
+					enqueueNeighbor(neighbor, stepData)
 				}
 			}
 			locData := stepData.LocDataMap[stepData.CurrentCoord]
@@ -32,7 +32,7 @@ func Run(pms core.PathingMapString, heuristic heur.Heuristic) (core.RunResult, s
 	}
 }
 
-func genInitialState(pms core.PathingMapString, heuristic heur.Heuristic) sd.StepData {
+func genInitialState(pms core.PathingMapString, heuristic heur.Heuristic) *sd.StepData {
 	pmd := pms.AsPMD()
 	pmap := core.PathingMap{Grid: pmd.Grid}
 
@@ -52,7 +52,7 @@ func genInitialState(pms core.PathingMapString, heuristic heur.Heuristic) sd.Ste
 	cost := sd.Optional[float64]{Value: 0.0, IsFilled: true}
 	locData[pmd.Start] = sd.LocationData{Breadcrumb: selfBreadcrumb, CostOpt: cost, WasVisited: false}
 
-	return sd.StepData{
+	return &sd.StepData{
 		LocDataMap:   locData,
 		MaxIters:     pmap.Height() * pmap.Width(),
 		PathingMap:   pmap,

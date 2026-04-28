@@ -41,7 +41,7 @@ func TestAStarAllMaps(t *testing.T) {
 	}
 }
 
-func formatFailureInfo(stepData sd.StepData) string {
+func formatFailureInfo(stepData *sd.StepData) string {
 	var breadcrumbStr string
 	locData, ok := stepData.LocDataMap[stepData.CurrentCoord]
 	if ok {
