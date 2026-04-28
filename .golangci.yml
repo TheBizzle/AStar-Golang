@@ -1,0 +1,18 @@
+version: "2"
+
+linters:
+  default: standard
+  enable:
+    - exhaustive
+    - gocritic
+    - gosec
+  settings:
+    exhaustive:
+      default-signifies-exhaustive: false  # don't let `default:` satisfy exhaustiveness
+    gocritic:
+      disabled-checks:
+        - ifElseChain
+
+issues:
+  max-issues-per-linter: 50
+  max-same-issues: 10
