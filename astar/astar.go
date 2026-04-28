@@ -13,7 +13,7 @@ import (
 func Run(pms core.PathingMapString, heuristic heur.Heuristic) (core.RunResult, sd.StepData) {
 	stepData := genInitialState(pms, heuristic)
 	for {
-		isPrimed := primeTheState(&stepData)
+		isPrimed := primeNextStep(&stepData)
 		if stepData.GoalCoord == stepData.CurrentCoord {
 			return core.SuccessfulRun, stepData
 		} else if !isPrimed || stepData.ItersSoFar >= stepData.MaxIters {
@@ -60,7 +60,7 @@ func genInitialState(pms core.PathingMapString, heuristic heur.Heuristic) sd.Ste
 	}
 }
 
-func primeTheState(stepData *sd.StepData) bool {
+func primeNextStep(stepData *sd.StepData) bool {
 	var next cq.PrioBundle[cq.MiniLoc]
 
 	for {
