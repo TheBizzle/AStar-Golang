@@ -50,7 +50,7 @@ func genInitialState(pms core.PathingMapString, heuristic heur.Heuristic) *sd.St
 		locData[coord] = sd.LocationData{Breadcrumb: nil, CostOpt: cost, WasVisited: false}
 	}
 
-	cost := opt.NewOption[float64](0.0)
+	cost := opt.NewOption(0.0)
 	locData[pmd.Start] = sd.LocationData{Breadcrumb: selfBreadcrumb, CostOpt: cost, WasVisited: false}
 
 	return &sd.StepData{
