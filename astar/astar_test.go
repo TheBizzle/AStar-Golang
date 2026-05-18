@@ -1,3 +1,4 @@
+// First version written by Claude Opus 4.6
 package astar_test
 
 import (
